@@ -14,8 +14,8 @@
       haskellPackages = pkgs.haskell.packages.ghc92.override {
         overrides = self: super: with pkgs.haskell.lib; {
           mwe = super.callCabal2nix "mwe" ./. { };
-          fir = super.callCabal2nix "fir" inputs.fir { };
-          haskus-utils-variant = super.callCabal2nix "haskus-utils-variant" "${inputs.haskus}/haskus-utils-variant" { };
+          fir = dontCheck (super.callCabal2nix "fir" inputs.fir { });
+          haskus-utils-variant = dontCheck (super.callCabal2nix "haskus-utils-variant" "${inputs.haskus}/haskus-utils-variant" { });
           typelits-witnesses = super.callCabal2nix "typelits-witnesses" inputs.typelits-witnesses { };
 
         };
