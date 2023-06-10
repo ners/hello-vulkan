@@ -1,0 +1,78 @@
+{
+  "nodes": {
+    "fir": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1684446053,
+        "narHash": "sha256-68EbDJLwryNaWiOwjtDnlNL/qtK4XJizaXhd3/ZspQ8=",
+        "owner": "sheaf",
+        "repo": "fir",
+        "rev": "ee2b1fbbeccdd3b3a936fcfc2b8ae4a3c64b0c53",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "sheaf",
+        "repo": "fir",
+        "type": "gitlab"
+      }
+    },
+    "haskus": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1666356583,
+        "narHash": "sha256-DTqvGs1ArKFjWa8pmyHE8pgGQErimKRoSEeqXApO68M=",
+        "owner": "haskus",
+        "repo": "packages",
+        "rev": "7af3ce7a3742c7ed56e1ea4158a23d80cf58123c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "haskus",
+        "repo": "packages",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1686319658,
+        "narHash": "sha256-tGWdoUAqKnE866mYFlEfc2a99kxFy31hOQJH5YQKrTQ=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "ae766d59b07c450e0f1de8a1bfd6529089f40849",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "fir": "fir",
+        "haskus": "haskus",
+        "nixpkgs": "nixpkgs",
+        "typelits-witnesses": "typelits-witnesses"
+      }
+    },
+    "typelits-witnesses": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1674951557,
+        "narHash": "sha256-RNOXlGkpSa4HFsoBdsOz4EHU3Ne8O/mgXpHoynktFmI=",
+        "owner": "mstksg",
+        "repo": "typelits-witnesses",
+        "rev": "3f4173cd064292cde306e76c1cf4b28a0abc0868",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mstksg",
+        "repo": "typelits-witnesses",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
