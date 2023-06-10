@@ -6,6 +6,8 @@
   inputs.typelits-witnesses.flake = false;
   inputs.haskus.url = "github:haskus/packages";
   inputs.haskus.flake = false;
+  inputs.bindings-GLFW.url = "github:bsl/bindings-GLFW";
+  inputs.bindings-GLFW.flake = false;
 
   outputs = inputs:
     let
@@ -17,7 +19,10 @@
           fir = dontCheck (super.callCabal2nix "fir" inputs.fir { });
           haskus-utils-variant = dontCheck (super.callCabal2nix "haskus-utils-variant" "${inputs.haskus}/haskus-utils-variant" { });
           typelits-witnesses = super.callCabal2nix "typelits-witnesses" inputs.typelits-witnesses { };
-
+          bindings-GLFW = pkgs.lib.pipe (super.callCabal2nixWithOptions "bindings-GLFW" inputs.bindings-GLFW "-fsystem-GLFW" { }) [
+            (compose.addPkgconfigDepends [ pkgs.glfw-wayland ])
+            dontCheck
+          ];
         };
       };
     in
@@ -28,7 +33,19 @@
         nativeBuildInputs = with haskellPackages; [
           cabal-install
           haskell-language-server
+
+          pkgs.vulkan-tools
+          pkgs.vulkan-loader
+          pkgs.vulkan-validation-layers
+          pkgs.vulkan-tools-lunarg
         ];
+        LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [
+          pkgs.vulkan-tools pkgs.vulkan-loader pkgs.vulkan-validation-layers pkgs.vulkan-tools-lunarg pkgs.vulkan-extension-layer
+        ]}";
+        VK_LAYER_PATH = "${pkgs.vulkan-validation-layers}/share/vulkan/explicit_layer.d";
+        shellHook = ''
+          export XDG_DATA_DIRS="${pkgs.vulkan-extension-layer}/share":$XDG_DATA_DIRS
+        '';
       };
     };
 }

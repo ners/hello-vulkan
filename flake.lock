@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "bindings-GLFW": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1582267040,
+        "narHash": "sha256-TuxPXqJXBR7ABqXBZx4pciRq20xr+WWuF94B719dr8g=",
+        "owner": "bsl",
+        "repo": "bindings-GLFW",
+        "rev": "5ba55775e9e055ad69ed3925559b2d38a7c51265",
+        "type": "github"
+      },
+      "original": {
+        "owner": "bsl",
+        "repo": "bindings-GLFW",
+        "type": "github"
+      }
+    },
     "fir": {
       "flake": false,
       "locked": {
@@ -50,6 +66,7 @@
     },
     "root": {
       "inputs": {
+        "bindings-GLFW": "bindings-GLFW",
         "fir": "fir",
         "haskus": "haskus",
         "nixpkgs": "nixpkgs",
