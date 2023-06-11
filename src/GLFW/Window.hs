@@ -1,10 +1,10 @@
-{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE OverloadedLists #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module GLFW.Window where
 
-import Prelude
-import Data.Bits (shiftL, (.|.))
+import Control.Lens.Operators
+import Data.Bits (shiftL, (.&.), (.|.))
 import Data.ByteString.Char8 qualified as BS
 import Data.Function ((&))
 import Data.Maybe (fromJust)
@@ -13,10 +13,14 @@ import Data.Word (Word32, Word64)
 import Foreign (Ptr, nullPtr, peek)
 import Foreign.C (peekCString)
 import Foreign.Marshal (alloca)
+import GHC.Generics (Generic)
 import Graphics.UI.GLFW qualified as GLFW
 import Vulkan qualified as Vk'
-import Vulkan.Core10.DeviceInitialization qualified as Vk hiding (PhysicalDeviceProperties(apiVersion))
+import Vulkan.CStruct.Extends qualified as Vk
+import Vulkan.Core10.DeviceInitialization qualified as Vk hiding (PhysicalDeviceProperties (apiVersion))
 import Vulkan.Zero qualified as Vk
+import Data.Generics.Labels ()
+import Prelude
 
 data GlfwWindow = GlfwWindow
     { handle :: GLFW.Window
@@ -54,17 +58,27 @@ createWindow width height = do
                 , Vk.enabledLayerNames = V.fromList $ BS.pack <$> ["VK_LAYER_KHRONOS_validation"]
                 }
     inst <- Vk.createInstance info Nothing
-    (Vk'.SUCCESS, V.toList -> (physicalDevice:_)) <- Vk.enumeratePhysicalDevices inst
+    (Vk'.SUCCESS, V.toList -> (physicalDevice : _)) <- Vk.enumeratePhysicalDevices inst
     familyProperties <- Vk.getPhysicalDeviceQueueFamilyProperties physicalDevice
-    let queues = zip [0..] (V.toList familyProperties)
-            & filter (\(i, fp) -> fp.queueCount > 0
-                && (fp.queueFlags .&. Vk.QUEUE_GRAPHICS_BIT == Vk.QUEUE_GRAPHICS_BIT))
+    let queues =
+            zip [0, 1 ..] (V.toList familyProperties)
+                & filter
+                    ( \(i, fp) ->
+                        fp.queueCount > 0
+                            && (fp.queueFlags .&. Vk.QUEUE_GRAPHICS_BIT == Vk.QUEUE_GRAPHICS_BIT)
+                    )
         info :: Vk'.DeviceCreateInfo '[]
-        info = Vk.zero
-            { Vk'.queueCreateInfos = Vk.zero
-                    & Vk'.queueFamilyIndex .~ fst $ head queues
-                    & Vk'.queuePriorities .~ [ 1 ]
-            }
+        info =
+            Vk.zero
+                { Vk'.enabledExtensionNames = []
+                , Vk'.queueCreateInfos =
+                             [ Vk.SomeStruct @Vk'.DeviceQueueCreateInfo @'[] $
+                                    Vk.zero
+                                        { Vk'.queueFamilyIndex = fst (head queues)
+                                        , Vk'.queuePriorities = [ 1 :: Float ]
+                                        }
+                             ]
+                }
     device <- Vk'.createDevice physicalDevice info Nothing
     surface <-
         Vk'.SurfaceKHR

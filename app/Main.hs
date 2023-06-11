@@ -1,9 +1,9 @@
 module Main where
 
-import Prelude
 import Control.Concurrent (threadDelay)
 import GLFW.Instance (withGLFW)
 import GLFW.Window qualified as GLFW
+import Prelude
 
 main :: IO ()
 main = withGLFW $ do

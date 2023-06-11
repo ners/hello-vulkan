@@ -1,9 +1,9 @@
 module GLFW.Instance where
 
-import Prelude
 import Control.Exception (bracket_)
 import Control.Monad (unless)
 import Graphics.UI.GLFW qualified as GLFW
+import Prelude
 
 initialize :: IO ()
 initialize =
