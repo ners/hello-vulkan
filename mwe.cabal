@@ -13,11 +13,36 @@ build-type:         Simple
 extra-doc-files:    CHANGELOG.md
 -- extra-source-files:
 
-common warnings
-    ghc-options: -Wall
+common common
+    default-language: GHC2021
+    ghc-options:
+        -Weverything
+        -Wno-unsafe
+        -Wno-missing-safe-haskell-mode
+        -Wno-missing-export-lists
+        -Wno-missing-import-lists
+        -Wno-missing-kind-signatures
+        -Wno-all-missed-specialisations
+    default-extensions:
+        ApplicativeDo
+        DataKinds
+        DefaultSignatures
+        DeriveAnyClass
+        DeriveGeneric
+        DerivingStrategies
+        DerivingVia
+        ExplicitNamespaces
+        NoImplicitPrelude
+        OverloadedLabels
+        OverloadedRecordDot
+        OverloadedStrings
+        RecordWildCards
+        RecursiveDo
+        TypeFamilies
+        ViewPatterns
 
 executable mwe
-    import:           warnings
+    import:           common
     main-is:          Main.hs
     -- other-modules:
     -- other-extensions:
@@ -28,14 +53,17 @@ executable mwe
     default-language: GHC2021
 
 library
-    import: warnings
+    import: common
     build-depends:
-        base,
         GLFW-b,
-        vulkan,
+        base,
+        bytestring,
+        eff,
         fir,
+        generic-lens,
+        lens,
         vector,
-        bytestring
+        vulkan,
     hs-source-dirs: src
     default-language: GHC2021
     exposed-modules:

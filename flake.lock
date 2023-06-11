@@ -16,6 +16,23 @@
         "type": "github"
       }
     },
+    "eff": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1686480434,
+        "narHash": "sha256-hKIke/oodjFVk3HiDB/ChgDzo6RI7lHLEXlDhxP0s7o=",
+        "owner": "lexi-lambda",
+        "repo": "eff",
+        "rev": "60f8a8c484cc579eb53cd0dd262836bde9094ddf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lexi-lambda",
+        "ref": "ghc-9.6",
+        "repo": "eff",
+        "type": "github"
+      }
+    },
     "fir": {
       "flake": false,
       "locked": {
@@ -67,6 +84,7 @@
     "root": {
       "inputs": {
         "bindings-GLFW": "bindings-GLFW",
+        "eff": "eff",
         "fir": "fir",
         "haskus": "haskus",
         "nixpkgs": "nixpkgs",
