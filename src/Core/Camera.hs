@@ -29,13 +29,11 @@ module Core.Camera
     )
 where
 
--- base
-
-import Prelude hiding (length)
 import Core.Extra (clamp)
 import Core.Math.Mat4 (Mat4, inverseTransform, rowMajor)
 import Core.Math.Vec2 (Vec2 (..))
 import Core.Math.Vec3 (Vec3 (Vec3), cross, dot, length, normalize, scalarMultiply)
+import Prelude hiding (length)
 
 -- | Represents the view frustum of a camera.
 data Frustum

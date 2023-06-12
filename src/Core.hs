@@ -1,12 +1,12 @@
 module Core
-  ( module Core.Extra
-  , module Core.Input
-  , module Core.Log
-  , module Core.Loop
-  , module Core.Math
-  ) where
+    ( module Core.Extra
+    , module Core.Input
+    , module Core.Log
+    , module Core.Loop
+    , module Core.Math
+    )
+where
 
-import Prelude
 import Core.Extra
 import Core.Input
 import Core.Log

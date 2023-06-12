@@ -28,8 +28,8 @@ module Core.Input
     )
 where
 
-import Prelude
 import Core.Math.Vec2 (Vec2)
+import Prelude
 
 -- | Represents the information gathered from an input poll.
 data Input = Input

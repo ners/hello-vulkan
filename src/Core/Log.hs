@@ -26,10 +26,9 @@ module Core.Log
     )
 where
 
--- base
-import Prelude
 import Control.Monad (when)
 import Data.Char (toUpper)
+import Prelude
 
 -- | Represents the importance of a logging action.
 data LogLevel

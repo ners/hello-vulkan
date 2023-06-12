@@ -6,11 +6,10 @@ module Core.Math.Vec4
     )
 where
 
--- base
-import Prelude hiding (length)
 import Core.Math.Vec3 (Vec3 (Vec3))
 import Foreign.Ptr (castPtr)
 import Foreign.Storable (Storable (..))
+import Prelude hiding (length)
 
 data Vec4 = Vec4
     { x :: {-# UNPACK #-} !Float
@@ -18,8 +17,7 @@ data Vec4 = Vec4
     , z :: {-# UNPACK #-} !Float
     , w :: {-# UNPACK #-} !Float
     }
-    deriving
-        (Eq, Ord, Read, Show)
+    deriving stock (Eq, Ord, Read, Show)
 
 instance Num Vec4 where
     (Vec4 x1 y1 z1 w1) + (Vec4 x2 y2 z2 w2) =

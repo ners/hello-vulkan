@@ -1,12 +1,9 @@
 module GLFW.Instance (GLFW, initialize, terminate, withGLFW) where
 
-
--- base
-import Prelude
 import Control.Exception (bracket)
 import Control.Monad (unless)
--- GLFW-b
 import Graphics.UI.GLFW qualified as GLFW
+import Prelude
 
 data GLFW = GLFW
 

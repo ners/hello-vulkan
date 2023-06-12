@@ -14,8 +14,8 @@ Helper functions for creating 'Vec3'-based animations.
 -}
 module Core.Animation.Vec3 where
 
-import Prelude
 import Core.Math.Vec3 (Vec3, scalarMultiply)
+import Prelude
 
 {- | Represents a linear transition function @f(t)@ from one point to another.
 

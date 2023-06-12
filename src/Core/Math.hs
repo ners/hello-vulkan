@@ -9,7 +9,6 @@ module Core.Math
     )
 where
 
-import Prelude
 import Core.Math.Mat4
 import Core.Math.Plane
 import Core.Math.Quaternion

@@ -1,11 +1,9 @@
 module Core.Loop where
 
--- base
-import Prelude
 import Control.Monad (unless)
 import Control.Monad.IO.Class (MonadIO, liftIO)
--- time
 import Data.Time (diffUTCTime, getCurrentTime)
+import Prelude
 
 loop :: (MonadIO m) => s -> (Float -> s -> m (Bool, s)) -> m ()
 loop initState f = do

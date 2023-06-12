@@ -19,14 +19,12 @@ module Core.Math.Mat4
     )
 where
 
--- base
-
-import Prelude
 import Core.Math.Quaternion (Quaternion (Quaternion))
 import Core.Math.Vec3 (Vec3 (Vec3))
 import Core.Math.Vec4 (Vec4 (Vec4))
 import Foreign.Ptr (castPtr)
 import Foreign.Storable (Storable (..))
+import Prelude
 
 data Mat4
     = Mat4
@@ -46,8 +44,7 @@ data Mat4
         {-# UNPACK #-} !Float
         {-# UNPACK #-} !Float
         {-# UNPACK #-} !Float
-    deriving
-        (Eq, Ord, Read, Show)
+    deriving stock (Eq, Ord, Read, Show)
 
 rowMajor
     :: Float
@@ -163,6 +160,7 @@ multiply
             b44
         ) =
         let
+            dot :: Float -> Float -> Float -> Float -> Float -> Float -> Float -> Float -> Float
             dot a b c d w y x z = a * w + b * y + c * x + d * z
             m11 = dot a11 a12 a13 a14 b11 b21 b31 b41
             m12 = dot a11 a12 a13 a14 b12 b22 b32 b42
@@ -224,6 +222,7 @@ multiplyVector
         )
     (Vec4 x y z w) =
         let
+            dot :: Float -> Float -> Float -> Float -> Float -> Float -> Float -> Float -> Float
             dot x1 y1 z1 w1 x2 y2 z2 w2 = x1 * x2 + y1 * y2 + z1 * z2 + w1 * w2
             vx = dot a11 a12 a13 a14 x y z w
             vy = dot a21 a22 a23 a24 x y z w
@@ -350,6 +349,7 @@ withScaleToRotation
             q2 = sqrt $ max 0 ((-r11 + r22 - r33 + 1) / 4)
             q3 = sqrt $ max 0 ((-r11 - r22 + r33 + 1) / 4)
 
+            sign :: Float -> Float
             sign x = if x >= 0 then 1 else -1
 
             (qr0, qr1, qr2, qr3) =
@@ -511,7 +511,9 @@ inverseTransform
             _
         ) =
         let
+            squareLength :: Float -> Float -> Float -> Float
             squareLength x y z = x * x + y * y + z * z
+            valueDot :: Float -> Float -> Float -> Float -> Float -> Float -> Float
             valueDot ax ay az bx by bz = ax * bx + ay * by + az * bz
             xLen2 = squareLength x1 x2 x3
             yLen2 = squareLength y1 y2 y3
@@ -548,8 +550,7 @@ inverseTransform
                 1
 
 newtype RowMajor a = RowMajor a
-    deriving
-        (Eq, Ord, Read, Show)
+    deriving stock (Eq, Ord, Read, Show)
 
 instance Storable (RowMajor Mat4) where
     sizeOf _ = 64
@@ -645,8 +646,7 @@ instance Storable (RowMajor Mat4) where
     {-# INLINE poke #-}
 
 newtype ColumnMajor a = ColumnMajor a
-    deriving
-        (Eq, Ord, Read, Show)
+    deriving stock (Eq, Ord, Read, Show)
 
 instance Storable (ColumnMajor Mat4) where
     sizeOf _ = 64

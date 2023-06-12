@@ -1,9 +1,8 @@
 module Vulkan.Builder where
 
--- base
-import Prelude
 import Control.Monad.IO.Class (MonadIO, liftIO)
 import Data.Coerce (coerce)
+import Prelude
 
 newtype Builder s a = Builder {run :: s -> IO (s, a)}
 

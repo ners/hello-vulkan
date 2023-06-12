@@ -1,8 +1,8 @@
 module Core.Math.Plane where
 
-import Prelude
 import Core.Math.Ray (Ray (..))
 import Core.Math.Vec3 (Vec3, dot, scalarMultiply)
+import Prelude
 
 data Plane = Plane
     { point :: !Vec3

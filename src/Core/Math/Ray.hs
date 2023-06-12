@@ -1,7 +1,7 @@
 module Core.Math.Ray where
 
-import Prelude
 import Core.Math.Vec3 (Vec3)
+import Prelude
 
 data Ray = Ray
     { origin :: !Vec3

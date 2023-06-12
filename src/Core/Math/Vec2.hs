@@ -1,16 +1,14 @@
 module Core.Math.Vec2 where
 
--- base
-import Prelude hiding (length)
 import Foreign.Ptr (castPtr)
 import Foreign.Storable (Storable (..))
+import Prelude hiding (length)
 
 data Vec2 = Vec2
     { x :: {-# UNPACK #-} !Float
     , y :: {-# UNPACK #-} !Float
     }
-    deriving
-        (Eq, Ord, Read, Show)
+    deriving stock (Eq, Ord, Read, Show)
 
 instance Num Vec2 where
     (Vec2 x1 y1) + (Vec2 x2 y2) =

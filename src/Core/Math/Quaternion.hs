@@ -8,5 +8,4 @@ data Quaternion
         {-# UNPACK #-} !Float
         {-# UNPACK #-} !Float
         {-# UNPACK #-} !Float
-    deriving
-        (Eq, Ord, Read, Show)
+    deriving stock (Eq, Ord, Read, Show)

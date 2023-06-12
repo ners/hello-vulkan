@@ -33,6 +33,7 @@ common common
         DerivingVia
         ExplicitNamespaces
         NoFieldSelectors
+        DuplicateRecordFields
         NoImplicitPrelude
         OverloadedLabels
         OverloadedRecordDot
@@ -57,15 +58,16 @@ executable mwe
 library
     import: common
     build-depends:
-        GLFW-b,
         base,
         bytestring,
         containers,
-        extra,
         eff,
+        extra,
         fir,
         generic-lens,
+        GLFW-b,
         lens,
+        logict,
         time,
         unliftio-core,
         vector,
@@ -76,3 +78,52 @@ library
         Core
         GLFW
         Vulkan
+    other-modules:
+        Control.Monad.Logic.Extra
+        Core.Extra
+        Core.Input
+        Core.Log
+        Core.Loop
+        Core.Math
+        Core.Math.Mat4
+        Core.Math.Plane
+        Core.Math.Quaternion
+        Core.Math.Ray
+        Core.Math.Vec2
+        Core.Math.Vec3
+        Core.Math.Vec4
+        Data.Bits.Extra
+        Data.List.Extra
+        Data.Ord.Extra
+        GLFW.Input
+        GLFW.Instance
+        GLFW.Window
+        Vulkan.Buffer
+        Vulkan.Builder
+        Vulkan.Command
+        Vulkan.CommandBuffer
+        Vulkan.CommandPool
+        Vulkan.DescriptorSet
+        Vulkan.DescriptorSetAllocator
+        Vulkan.Device
+        Vulkan.Exception
+        Vulkan.Fence
+        Vulkan.Frame
+        Vulkan.Framebuffer
+        Vulkan.Image
+        Vulkan.ImageView
+        Vulkan.Instance
+        Vulkan.Memory
+        Vulkan.PhysicalDevice
+        Vulkan.Pipeline
+        Vulkan.PipelineLayout
+        Vulkan.Queue
+        Vulkan.RenderPass
+        Vulkan.Result
+        Vulkan.Sampler
+        Vulkan.Semaphore
+        Vulkan.Shader
+        Vulkan.Swapchain
+        Vulkan.Version
+        Vulkan.VirtualFrame
+        Vulkan.Window

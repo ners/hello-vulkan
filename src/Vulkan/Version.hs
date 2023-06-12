@@ -1,7 +1,5 @@
 module Vulkan.Version where
 
--- base
-import Prelude
 import Data.Bits (shiftL, (.|.))
 import Data.Word (Word32)
 

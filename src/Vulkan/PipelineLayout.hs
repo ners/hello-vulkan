@@ -1,39 +1,35 @@
 module Vulkan.PipelineLayout
-  ( createPipelineLayout
-  , destroyPipelineLayout
-  , withPipelineLayout
-  , module Vulkan.Core10.PipelineLayout
-  ) where
+    ( createPipelineLayout
+    , destroyPipelineLayout
+    , withPipelineLayout
+    , module Vulkan.Core10.PipelineLayout
+    )
+where
 
--- base
-import Prelude
-import Control.Exception      (bracket)
+import Control.Exception (bracket)
 import Control.Monad.IO.Class (MonadIO)
-
--- unliftio-core
 import Control.Monad.IO.Unlift (MonadUnliftIO, withRunInIO)
-
--- vulkan
-import "vulkan" Vulkan                       qualified as Vk
+import "vulkan" Vulkan qualified as Vk
 import "vulkan" Vulkan.Core10.PipelineLayout hiding (createPipelineLayout, destroyPipelineLayout, withPipelineLayout)
+import Prelude
 
-createPipelineLayout :: MonadIO m => Vk.Device -> Vk.PipelineLayoutCreateInfo -> m Vk.PipelineLayout
+createPipelineLayout :: (MonadIO m) => Vk.Device -> Vk.PipelineLayoutCreateInfo -> m Vk.PipelineLayout
 createPipelineLayout device info =
-  Vk.createPipelineLayout device info Nothing
+    Vk.createPipelineLayout device info Nothing
 
-destroyPipelineLayout :: MonadIO m => Vk.Device -> Vk.PipelineLayout -> m ()
+destroyPipelineLayout :: (MonadIO m) => Vk.Device -> Vk.PipelineLayout -> m ()
 destroyPipelineLayout device layout =
-  Vk.destroyPipelineLayout device layout Nothing
+    Vk.destroyPipelineLayout device layout Nothing
 
 withPipelineLayout
-  :: MonadUnliftIO m
-  => Vk.Device
-  -> Vk.PipelineLayoutCreateInfo
-  -> (Vk.PipelineLayout -> m a)
-  -> m a
+    :: (MonadUnliftIO m)
+    => Vk.Device
+    -> Vk.PipelineLayoutCreateInfo
+    -> (Vk.PipelineLayout -> m a)
+    -> m a
 withPipelineLayout device info f =
-  withRunInIO $ \run ->
-    bracket
-      ( createPipelineLayout device info )
-      ( destroyPipelineLayout device )
-      ( run . f )
+    withRunInIO $ \run ->
+        bracket
+            (createPipelineLayout device info)
+            (destroyPipelineLayout device)
+            (run . f)
