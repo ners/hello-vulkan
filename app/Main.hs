@@ -1,14 +1,13 @@
 module Main where
 
-import Control.Concurrent (threadDelay)
-import GLFW.Instance (withGLFW)
-import GLFW.Window qualified as GLFW
 import Prelude
+import Control.Concurrent (threadDelay)
+import GLFW.Instance
+import GLFW.Window
+import Vulkan.Window
 
 main :: IO ()
-main = withGLFW $ do
-    w <- GLFW.createWindow 800 600
-    putStrLn "create window"
-    threadDelay 5_000_000
-    putStrLn "destroy window"
-    GLFW.destroyWindow w
+main = withGLFW $ \glfw -> do
+    let strategy = glfwStrategy glfw
+    withWindow strategy 800 600 "Hello Vulkan" $ \window -> do
+        threadDelay 5_000_000

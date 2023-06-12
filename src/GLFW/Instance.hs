@@ -1,14 +1,23 @@
-module GLFW.Instance where
+module GLFW.Instance (GLFW, initialize, terminate, withGLFW) where
 
-import Control.Exception (bracket_)
-import Control.Monad (unless)
-import Graphics.UI.GLFW qualified as GLFW
+
+-- base
 import Prelude
+import Control.Exception (bracket)
+import Control.Monad (unless)
+-- GLFW-b
+import Graphics.UI.GLFW qualified as GLFW
 
-initialize :: IO ()
+data GLFW = GLFW
+
+initialize :: IO GLFW
 initialize =
     GLFW.init
-        >>= flip unless (fail "Could not initialize GLFW")
+        >>= flip unless (fail "Could not initialize GLFW.")
+        >> pure GLFW
 
-withGLFW :: IO a -> IO a
-withGLFW = bracket_ initialize GLFW.terminate
+terminate :: IO ()
+terminate = GLFW.terminate
+
+withGLFW :: (GLFW -> IO a) -> IO a
+withGLFW = bracket initialize (const terminate)

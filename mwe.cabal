@@ -32,10 +32,12 @@ common common
         DerivingStrategies
         DerivingVia
         ExplicitNamespaces
+        NoFieldSelectors
         NoImplicitPrelude
         OverloadedLabels
         OverloadedRecordDot
         OverloadedStrings
+        PackageImports
         RecordWildCards
         RecursiveDo
         TypeFamilies
@@ -58,14 +60,19 @@ library
         GLFW-b,
         base,
         bytestring,
+        containers,
+        extra,
         eff,
         fir,
         generic-lens,
         lens,
+        time,
+        unliftio-core,
         vector,
         vulkan,
     hs-source-dirs: src
     default-language: GHC2021
     exposed-modules:
-        GLFW.Instance,
-        GLFW.Window
+        Core
+        GLFW
+        Vulkan
